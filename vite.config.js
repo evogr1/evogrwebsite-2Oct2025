@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  root: 'evogr.net/evogr.net',
+  root: '.',
   publicDir: false,
   server: {
     port: 5173,
