@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 80" fill="none">
+  <g>
+    <path d="M20 30 Q30 20 40 30 Q30 40 20 30" fill="#38A169"/>
+    <text x="60" y="45" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#38A169">PharmEasy</text>
+  </g>
+</svg>

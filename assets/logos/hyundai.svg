@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none">
+  <g>
+    <ellipse cx="40" cy="40" rx="25" ry="15" fill="none" stroke="#3182CE" stroke-width="3"/>
+    <path d="M20 40 Q40 25 60 40" fill="none" stroke="#3182CE" stroke-width="2"/>
+    <text x="80" y="45" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#3182CE">HYUNDAI</text>
+  </g>
+</svg>

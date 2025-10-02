@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" fill="none">
+  <g>
+    <path d="M20 25 L30 55 L40 25 L50 55 L60 25" fill="none" stroke="#3182CE" stroke-width="3"/>
+    <text x="80" y="45" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#3182CE">VEM</text>
+  </g>
+</svg>

@@ -19,6 +19,733 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script type="module" crossorigin src="/assets/index-CcLRYBum.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-i2QypV5M.css">
+    <style>
+      /* Move ONLY hero section content up by 125px total - NOT the carousel */
+      #root > div > div:first-child,
+      #root > div > main:first-child,
+      [class*="hero-content"],
+      [class*="hero-text"],
+      [class*="hero-title"],
+      [class*="hero-buttons"],
+      [class*="hero-stats"] {
+        transform: translateY(-125px) !important;
+      }
+      
+      
+      /* Reduce spacing between title and buttons - ULTRA CLOSE */
+      h1 + *,
+      [class*="title"] + *,
+      [class*="heading"] + *,
+      [class*="hero-title"] + *,
+      h1:contains("Workforce Solutions") + *,
+      *:contains("Workforce Solutions meet Military Precision") + * {
+        margin-top: -180px !important;
+        padding-top: 0 !important;
+      }
+      
+      /* Target buttons container specifically - ULTRA CLOSE */
+      [class*="button"],
+      [class*="cta"],
+      [class*="action"] {
+        margin-top: -175px !important;
+      }
+      
+      /* Move stats section closer to title - ULTRA AGGRESSIVE CSS */
+      [class*="stats"],
+      [class*="feature"], 
+      [class*="metric"],
+      [class*="info"],
+      [class*="badge"],
+      [class*="tag"],
+      div:has(*:contains("Veteran-Led")),
+      div:has(*:contains("7,000+ Professionals")),
+      div:has(*:contains("PAN-India Coverage")) {
+        margin-top: -150px !important;
+        padding-top: 0 !important;
+        transform: translateY(-150px) !important;
+      }
+      
+      /* Direct targeting of stats elements */
+      * {
+        /* This will be overridden by JavaScript for specific elements */
+      }
+      
+      /* Ensure carousel is NOT affected by hero transforms */
+      .hero__social-proof {
+        transform: none !important;
+      }
+      
+      /* RunPod-style Logo Carousel - MASSIVE SIZE */
+      .hero__social-proof {
+        width: 100%;
+        padding: 6rem 0;
+        margin-top: -450px;
+        background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(10,10,10,0.8) 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .hero__social-proof-header {
+        text-align: center;
+        margin-bottom: calc(5rem - 25px);
+        color: #9CA3AF;
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+      }
+      
+      .hero__logo-marquee {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        mask: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        -webkit-mask: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      }
+      
+      .logo-marquee {
+        display: flex;
+        animation: scroll 30s linear infinite;
+        width: calc(300px * 22); /* 11 logos * 2 for seamless loop - REDUCED SPACING */
+      }
+      
+      .logo-marquee__item {
+        flex: 0 0 300px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 2rem;
+        opacity: 0.95;
+        transition: opacity 0.3s ease;
+        filter: grayscale(70%);
+      }
+      
+      .logo-marquee__item:hover {
+        opacity: 1;
+        filter: grayscale(0%);
+      }
+      
+      .logo-marquee__item img {
+        max-width: 280px;
+        max-height: 100px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+      }
+      
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-3300px); /* Updated for reduced spacing */
+        }
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .hero__social-proof {
+          padding: 5rem 0;
+        }
+        
+        .hero__social-proof-header {
+          font-size: 1.2rem;
+          margin-bottom: 4rem;
+          font-weight: 700;
+        }
+        
+        .logo-marquee__item {
+          flex: 0 0 240px;
+          padding: 0 1.5rem;
+          height: 140px;
+          opacity: 0.9;
+        }
+        
+        .logo-marquee__item img {
+          max-width: 220px;
+          max-height: 80px;
+        }
+        
+        .logo-marquee {
+          width: calc(240px * 22);
+        }
+        
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-2640px);
+          }
+        }
+      }
+    </style>
+    <script>
+      // Logo carousel injection script
+      document.addEventListener('DOMContentLoaded', function() {
+        // Remove green bouncing animation
+        function removeBouncingAnimation() {
+          const bounceElements = document.querySelectorAll('.animate-bounce, [class*="animate-bounce"], [class*="bounce"]');
+          bounceElements.forEach(element => {
+            element.style.animation = 'none';
+            element.style.display = 'none';
+          });
+        }
+        
+        // Function to find and replace the horizontal dividing line with carousel
+        function insertCarouselAtDividingLine() {
+          // Strategy 1: Look for horizontal dividing lines (hr elements, borders, etc.)
+          const hrElements = document.querySelectorAll('hr, [class*="divider"], [class*="separator"], [class*="line"], [style*="border"]');
+          if (hrElements.length > 0) {
+            // Use the first horizontal divider found
+            const dividerElement = hrElements[0];
+            
+            // Create the carousel and replace the divider
+            const logoCarouselHTML = `
+              <div class="hero__social-proof">
+                <div class="hero__social-proof-header">
+                  Trusted by leading organizations worldwide
+                </div>
+                <div class="hero__logo-marquee">
+                  <div class="logo-marquee">
+                    <!-- First set of logos -->
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/schiebel.svg" alt="Schiebel" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/mufin.svg" alt="Mufin" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/chola-ms.svg" alt="Chola MS Risk Services" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/manipal.svg" alt="Manipal Academy" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/bennett.svg" alt="Bennett University" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/tulip.svg" alt="Tulip Compression" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/hyundai.svg" alt="Hyundai" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/gmr.svg" alt="GMR" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/matrix.svg" alt="Matrix Smart Technologies" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/vem.svg" alt="VEM" />
+                    </div>
+                    
+                    <!-- Second set for seamless loop -->
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/schiebel.svg" alt="Schiebel" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/mufin.svg" alt="Mufin" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/chola-ms.svg" alt="Chola MS Risk Services" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/manipal.svg" alt="Manipal Academy" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/bennett.svg" alt="Bennett University" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/tulip.svg" alt="Tulip Compression" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/hyundai.svg" alt="Hyundai" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/gmr.svg" alt="GMR" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/matrix.svg" alt="Matrix Smart Technologies" />
+                    </div>
+                    <div class="logo-marquee__item">
+                      <img src="/assets/logos/vem.svg" alt="VEM" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            
+            // Replace the divider with the carousel
+            dividerElement.outerHTML = logoCarouselHTML;
+            return true;
+          }
+          
+          // Strategy 2: Look for elements with border styles that might be dividing lines
+          const allElements = document.querySelectorAll('*');
+          for (let element of allElements) {
+            const computedStyle = window.getComputedStyle(element);
+            if (computedStyle.borderTopWidth !== '0px' || computedStyle.borderBottomWidth !== '0px') {
+              // Found an element with horizontal borders - likely a divider
+              if (element.offsetHeight < 20 && element.offsetWidth > 200) { // Likely a horizontal line
+                const logoCarouselHTML = `
+                  <div class="hero__social-proof">
+                    <div class="hero__social-proof-header">
+                      Trusted by leading organizations worldwide
+                    </div>
+                    <div class="hero__logo-marquee">
+                      <div class="logo-marquee">
+                        <!-- First set of logos -->
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/schiebel.svg" alt="Schiebel" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/mufin.svg" alt="Mufin" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/chola-ms.svg" alt="Chola MS Risk Services" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/manipal.svg" alt="Manipal Academy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/bennett.svg" alt="Bennett University" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/tulip.svg" alt="Tulip Compression" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/hyundai.svg" alt="Hyundai" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/gmr.svg" alt="GMR" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/matrix.svg" alt="Matrix Smart Technologies" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/vem.svg" alt="VEM" />
+                        </div>
+                        
+                        <!-- Second set for seamless loop -->
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/schiebel.svg" alt="Schiebel" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/mufin.svg" alt="Mufin" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/chola-ms.svg" alt="Chola MS Risk Services" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/manipal.svg" alt="Manipal Academy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/bennett.svg" alt="Bennett University" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/tulip.svg" alt="Tulip Compression" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/hyundai.svg" alt="Hyundai" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/gmr.svg" alt="GMR" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/matrix.svg" alt="Matrix Smart Technologies" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/vem.svg" alt="VEM" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                
+                element.outerHTML = logoCarouselHTML;
+                return true;
+              }
+            }
+          }
+          
+          // Strategy 3: Fallback - look for "Finding skilled workforce" text as before
+          const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          );
+          
+          let node;
+          while (node = walker.nextNode()) {
+            if (node.textContent.includes('Finding skilled workforce') || node.textContent.includes("shouldn't be this hard")) {
+              // Found the text, now find its parent element
+              let parentElement = node.parentElement;
+              
+              // Find a suitable container (usually a section or div)
+              while (parentElement && !['SECTION', 'DIV', 'MAIN'].includes(parentElement.tagName)) {
+                parentElement = parentElement.parentElement;
+              }
+              
+              if (parentElement) {
+                // Create the logo carousel HTML with MUCH larger size
+                const logoCarouselHTML = `
+                  <div class="hero__social-proof">
+                    <div class="hero__social-proof-header">
+                      Trusted by leading organizations worldwide
+                    </div>
+                    <div class="hero__logo-marquee">
+                      <div class="logo-marquee">
+                        <!-- First set of logos -->
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/schiebel.svg" alt="Schiebel" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/mufin.svg" alt="Mufin" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/chola-ms.svg" alt="Chola MS Risk Services" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/manipal.svg" alt="Manipal Academy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/bennett.svg" alt="Bennett University" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/tulip.svg" alt="Tulip Compression" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/hyundai.svg" alt="Hyundai" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/gmr.svg" alt="GMR" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/matrix.svg" alt="Matrix Smart Technologies" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/vem.svg" alt="VEM" />
+                        </div>
+                        
+                        <!-- Second set for seamless loop -->
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/schiebel.svg" alt="Schiebel" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/mufin.svg" alt="Mufin" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/chola-ms.svg" alt="Chola MS Risk Services" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/manipal.svg" alt="Manipal Academy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/bennett.svg" alt="Bennett University" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/tulip.svg" alt="Tulip Compression" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/hyundai.svg" alt="Hyundai" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/gmr.svg" alt="GMR" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/matrix.svg" alt="Matrix Smart Technologies" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/vem.svg" alt="VEM" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                
+                // Create a container div and insert the carousel before the workforce section
+                const carouselContainer = document.createElement('div');
+                carouselContainer.innerHTML = logoCarouselHTML;
+                
+                // Insert before the parent element (above the workforce text)
+                parentElement.parentNode.insertBefore(carouselContainer.firstElementChild, parentElement);
+                return true; // Successfully inserted
+              }
+            }
+          }
+          return false; // Not found
+        }
+        
+        // Function to find and insert carousel near "Finding skilled workforce" text
+        function insertCarouselNearWorkforce() {
+          // Look for the text "Finding skilled workforce" in the DOM
+          const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          );
+          
+          let node;
+          while (node = walker.nextNode()) {
+            if (node.textContent.includes('Finding skilled workforce') || node.textContent.includes("shouldn't be this hard")) {
+              // Found the text, now find its parent element
+              let parentElement = node.parentElement;
+              
+              // Find a suitable container (usually a section or div)
+              while (parentElement && !['SECTION', 'DIV', 'MAIN'].includes(parentElement.tagName)) {
+                parentElement = parentElement.parentElement;
+              }
+              
+              if (parentElement) {
+                // Create the logo carousel HTML with MUCH larger size
+                const logoCarouselHTML = `
+                  <div class="hero__social-proof">
+                    <div class="hero__social-proof-header">
+                      Trusted by leading organizations worldwide
+                    </div>
+                    <div class="hero__logo-marquee">
+                      <div class="logo-marquee">
+                        <!-- First set of logos -->
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/schiebel.svg" alt="Schiebel" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/mufin.svg" alt="Mufin" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/chola-ms.svg" alt="Chola MS Risk Services" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/manipal.svg" alt="Manipal Academy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/bennett.svg" alt="Bennett University" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/tulip.svg" alt="Tulip Compression" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/hyundai.svg" alt="Hyundai" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/gmr.svg" alt="GMR" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/matrix.svg" alt="Matrix Smart Technologies" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/vem.svg" alt="VEM" />
+                        </div>
+                        
+                        <!-- Second set for seamless loop -->
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/schiebel.svg" alt="Schiebel" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/mufin.svg" alt="Mufin" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/chola-ms.svg" alt="Chola MS Risk Services" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/manipal.svg" alt="Manipal Academy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/bennett.svg" alt="Bennett University" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/tulip.svg" alt="Tulip Compression" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/hyundai.svg" alt="Hyundai" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/gmr.svg" alt="GMR" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/matrix.svg" alt="Matrix Smart Technologies" />
+                        </div>
+                        <div class="logo-marquee__item">
+                          <img src="/assets/logos/vem.svg" alt="VEM" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                
+                // Create a container div and insert the carousel before the workforce section
+                const carouselContainer = document.createElement('div');
+                carouselContainer.innerHTML = logoCarouselHTML;
+                
+                // Insert before the parent element (above the workforce text)
+                parentElement.parentNode.insertBefore(carouselContainer.firstElementChild, parentElement);
+                return true; // Successfully inserted
+              }
+            }
+          }
+          return false; // Not found
+        }
+        
+        // Function to remove the subtitle text
+        function removeSubtitleText() {
+          const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          );
+          
+          let node;
+          while (node = walker.nextNode()) {
+            if (node.textContent.includes('The all-in-one platform to connect employers with veteran talent')) {
+              const parentElement = node.parentElement;
+              if (parentElement) {
+                parentElement.style.display = 'none';
+              }
+            }
+          }
+        }
+        
+        // Function to reduce spacing between title and buttons
+        function reduceButtonSpacing() {
+          const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          );
+          
+          let node;
+          while (node = walker.nextNode()) {
+            if (node.textContent.includes('Workforce Solutions meet Military Precision')) {
+              let parentElement = node.parentElement;
+              
+              // Find the title container
+              while (parentElement && !['H1', 'H2', 'DIV', 'SECTION'].includes(parentElement.tagName)) {
+                parentElement = parentElement.parentElement;
+              }
+              
+              if (parentElement) {
+                // Find next sibling elements (likely button containers)
+                let nextElement = parentElement.nextElementSibling;
+                while (nextElement) {
+                  nextElement.style.marginTop = '-185px';
+                  nextElement.style.paddingTop = '0px';
+                  nextElement = nextElement.nextElementSibling;
+                  if (nextElement && (nextElement.textContent.includes('Get started') || nextElement.textContent.includes('Join Our Network'))) {
+                    break; // Stop after buttons
+                  }
+                }
+              }
+            }
+          }
+        }
+        
+        // Function to move stats section closer to title - AGGRESSIVE APPROACH
+        function moveStatsCloser() {
+          // Find ALL elements containing the stats text
+          const allElements = document.querySelectorAll('*');
+          
+          allElements.forEach(element => {
+            const text = element.textContent || '';
+            if (text.includes('Veteran-Led') || 
+                text.includes('7,000+ Professionals') || 
+                text.includes('PAN-India Coverage')) {
+              
+              // Apply styles to the element itself - MUCH MORE AGGRESSIVE
+              element.style.marginTop = '-150px !important';
+              element.style.paddingTop = '0px !important';
+              element.style.transform = 'translateY(-150px) !important';
+              
+              // Also apply to parent elements up the chain - MUCH MORE AGGRESSIVE
+              let parent = element.parentElement;
+              for (let i = 0; i < 5 && parent; i++) {
+                parent.style.marginTop = '-150px !important';
+                parent.style.paddingTop = '0px !important';
+                parent.style.transform = 'translateY(-150px) !important';
+                parent = parent.parentElement;
+              }
+            }
+          });
+          
+          // Also target by common class patterns
+          const statsSelectors = [
+            '[class*="stat"]',
+            '[class*="metric"]',
+            '[class*="feature"]',
+            '[class*="info"]',
+            '[class*="badge"]',
+            '[class*="tag"]'
+          ];
+          
+          statsSelectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(el => {
+              if (el.textContent.includes('Veteran') || 
+                  el.textContent.includes('7,000') || 
+                  el.textContent.includes('PAN-India')) {
+                el.style.marginTop = '-150px !important';
+                el.style.paddingTop = '0px !important';
+                el.style.transform = 'translateY(-150px) !important';
+              }
+            });
+          });
+        }
+        
+        // Try to insert immediately, then retry with delays if not found
+        setTimeout(function() {
+          removeBouncingAnimation(); // Remove bouncing animation first
+          removeSubtitleText(); // Remove subtitle text
+          reduceButtonSpacing(); // Reduce spacing between title and buttons
+          moveStatsCloser(); // Move stats section closer to title
+          if (!insertCarouselNearWorkforce()) {
+            setTimeout(function() {
+              removeBouncingAnimation(); // Try again
+              removeSubtitleText(); // Try again
+              reduceButtonSpacing(); // Try again
+              moveStatsCloser(); // Try again
+              if (!insertCarouselNearWorkforce()) {
+                setTimeout(function() {
+                  removeBouncingAnimation(); // Final attempt
+                  removeSubtitleText(); // Final attempt
+                  reduceButtonSpacing(); // Final attempt
+                  moveStatsCloser(); // Final attempt
+                  insertCarouselNearWorkforce();
+                }, 3000);
+              }
+            }, 2000);
+          }
+        }, 1000);
+      });
+    </script>
   </head>
 
   <body>

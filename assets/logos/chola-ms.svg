@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none">
+  <g>
+    <circle cx="30" cy="40" r="15" fill="#E53E3E"/>
+    <circle cx="30" cy="40" r="10" fill="#3182CE"/>
+    <text x="60" y="35" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2D3748">Chola MS</text>
+    <text x="60" y="55" font-family="Arial, sans-serif" font-size="12" fill="#718096">RISK SERVICES</text>
+  </g>
+</svg>

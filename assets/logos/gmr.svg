@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" fill="none">
+  <g>
+    <rect x="20" y="25" width="15" height="30" fill="#E53E3E"/>
+    <polygon points="40,25 55,25 50,40 45,55 40,55" fill="#D69E2E"/>
+    <rect x="60" y="25" width="15" height="30" fill="#3182CE"/>
+    <text x="90" y="45" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#2D3748">GMR</text>
+  </g>
+</svg>
