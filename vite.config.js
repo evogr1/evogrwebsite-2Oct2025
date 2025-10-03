@@ -13,7 +13,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'evogr.net/evogr.net/index.html')
+        main: resolve(__dirname, 'index.html')
       }
     }
   }
