@@ -20,75 +20,35 @@
     <script type="module" crossorigin src="/assets/index-CcLRYBum.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-i2QypV5M.css">
     <style>
-      /* Move ONLY hero section content up by 125px total - NOT the carousel */
-      #root > div > div:first-child,
-      #root > div > main:first-child,
-      [class*="hero-content"],
-      [class*="hero-text"],
-      [class*="hero-title"],
-      [class*="hero-buttons"],
-      [class*="hero-stats"] {
-        transform: translateY(-125px) !important;
+      /* Hero section spacing adjustments */
+      .hero-title {
+        margin-top: 3rem !important;
       }
-      
-      
-      /* Reduce spacing between title and buttons - ULTRA CLOSE */
-      h1 + *,
-      [class*="title"] + *,
-      [class*="heading"] + *,
-      [class*="hero-title"] + *,
-      h1:contains("Workforce Solutions") + *,
-      *:contains("Workforce Solutions meet Military Precision") + * {
-        margin-top: -180px !important;
-        padding-top: 0 !important;
-      }
-      
-      /* Target buttons container specifically - ULTRA CLOSE */
-      [class*="button"],
-      [class*="cta"],
-      [class*="action"] {
-        margin-top: -175px !important;
-      }
-      
-      /* Move stats section closer to title - ULTRA AGGRESSIVE CSS */
-      [class*="stats"],
-      [class*="feature"], 
-      [class*="metric"],
-      [class*="info"],
-      [class*="badge"],
-      [class*="tag"],
-      div:has(*:contains("Veteran-Led")),
-      div:has(*:contains("7,000+ Professionals")),
-      div:has(*:contains("PAN-India Coverage")) {
-        margin-top: -150px !important;
-        padding-top: 0 !important;
-        transform: translateY(-150px) !important;
-      }
-      
-      /* Direct targeting of stats elements */
-      * {
-        /* This will be overridden by JavaScript for specific elements */
-      }
-      
 
-      /* RunPod-style Logo Carousel */
+      .hero-subtitle-hidden {
+        display: none !important;
+      }
+
+      .hero-buttons-tighter {
+        margin-top: 2rem !important;
+      }
+
+      .hero-stats-tighter {
+        margin-top: 3rem !important;
+      }
+
+      .hero-mouse-hidden {
+        display: none !important;
+      }
+
+      /* Logo Carousel - RunPod Style */
       .logo-carousel-section {
         width: 100%;
-        padding: 4rem 0;
+        padding: 2rem 0 4rem 0;
         background: transparent;
         position: relative;
         overflow: hidden;
-      }
-
-      .logo-carousel-title {
-        text-align: center;
-        margin-bottom: 3rem;
-        color: #9CA3AF;
-        font-size: 0.875rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        opacity: 0.8;
+        margin-top: 0;
       }
 
       .logo-carousel-track-wrapper {
@@ -101,30 +61,28 @@
 
       .logo-carousel-track {
         display: flex;
-        animation: scroll-logos 40s linear infinite;
+        animation: scroll-logos 30s linear infinite;
         will-change: transform;
       }
 
       .logo-carousel-item {
-        flex: 0 0 200px;
+        flex: 0 0 220px;
         height: 80px;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 2rem;
-        opacity: 0.6;
-        transition: opacity 0.3s ease, filter 0.3s ease;
-        filter: grayscale(100%);
+        padding: 0 2.5rem;
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
       }
 
       .logo-carousel-item:hover {
-        opacity: 1;
-        filter: grayscale(0%);
+        opacity: 0.8;
       }
 
       .logo-carousel-item img {
-        max-width: 160px;
-        max-height: 60px;
+        max-width: 140px;
+        max-height: 50px;
         width: auto;
         height: auto;
         object-fit: contain;
@@ -135,29 +93,24 @@
           transform: translateX(0);
         }
         100% {
-          transform: translateX(calc(-200px * 11));
+          transform: translateX(calc(-220px * 5));
         }
       }
 
       @media (max-width: 768px) {
         .logo-carousel-section {
-          padding: 3rem 0;
-        }
-
-        .logo-carousel-title {
-          font-size: 0.75rem;
-          margin-bottom: 2rem;
+          padding: 1.5rem 0 3rem 0;
         }
 
         .logo-carousel-item {
-          flex: 0 0 160px;
+          flex: 0 0 180px;
           height: 60px;
-          padding: 0 1.5rem;
+          padding: 0 2rem;
         }
 
         .logo-carousel-item img {
-          max-width: 120px;
-          max-height: 45px;
+          max-width: 110px;
+          max-height: 40px;
         }
 
         @keyframes scroll-logos {
@@ -165,7 +118,7 @@
             transform: translateX(0);
           }
           100% {
-            transform: translateX(calc(-160px * 11));
+            transform: translateX(calc(-180px * 5));
           }
         }
       }
@@ -178,45 +131,60 @@
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
+          // Hide subtitle
+          const subtitle = document.querySelector('.section-subtitle');
+          if (subtitle) {
+            subtitle.classList.add('hero-subtitle-hidden');
+          }
+
+          // Adjust title spacing
+          const title = document.querySelector('.hero-title') || document.querySelector('h1');
+          if (title) {
+            title.classList.add('hero-title');
+          }
+
+          // Adjust buttons spacing
+          const buttonsContainer = document.querySelector('.flex.flex-col.sm\\:flex-row');
+          if (buttonsContainer) {
+            buttonsContainer.classList.add('hero-buttons-tighter');
+          }
+
+          // Adjust stats spacing
+          const statsContainer = buttonsContainer?.nextElementSibling;
+          if (statsContainer) {
+            statsContainer.classList.add('hero-stats-tighter');
+          }
+
+          // Hide mouse indicator
+          const mouseIndicator = document.querySelector('.animate-bounce');
+          if (mouseIndicator) {
+            mouseIndicator.classList.add('hero-mouse-hidden');
+          }
+
+          // Create and add logo carousel
           const rootElement = document.getElementById('root');
           if (!rootElement || !rootElement.firstChild) return;
 
           const carouselHTML = `
             <section class="logo-carousel-section">
-              <div class="logo-carousel-title">
-                Trusted by leading organizations
-              </div>
               <div class="logo-carousel-track-wrapper">
                 <div class="logo-carousel-track">
-                  <div class="logo-carousel-item"><img src="/assets/logos/schiebel.svg" alt="Schiebel" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/mufin.svg" alt="Mufin" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/chola-ms.svg" alt="Chola MS" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/manipal.svg" alt="Manipal" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/bennett.svg" alt="Bennett" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/tulip.svg" alt="Tulip" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/hyundai.svg" alt="Hyundai" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/gmr.svg" alt="GMR" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/matrix.svg" alt="Matrix" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/vem.svg" alt="VEM" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" /></div>
 
-                  <div class="logo-carousel-item"><img src="/assets/logos/schiebel.svg" alt="Schiebel" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/mufin.svg" alt="Mufin" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/chola-ms.svg" alt="Chola MS" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/manipal.svg" alt="Manipal" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/bennett.svg" alt="Bennett" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/tulip.svg" alt="Tulip" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/pharmeasy.svg" alt="PharmEasy" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/hyundai.svg" alt="Hyundai" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/gmr.svg" alt="GMR" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/matrix.svg" alt="Matrix" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/vem.svg" alt="VEM" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" /></div>
+                  <div class="logo-carousel-item"><img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" /></div>
                 </div>
               </div>
             </section>
           `;
 
-          const firstChild = rootElement.firstChild;
           const carouselElement = document.createElement('div');
           carouselElement.innerHTML = carouselHTML;
 
@@ -224,7 +192,7 @@
           if (heroSection && heroSection.parentNode) {
             heroSection.parentNode.insertBefore(carouselElement.firstChild, heroSection.nextSibling);
           }
-        }, 1500);
+        }, 500);
       });
     </script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"e76faca2e13d4764b0e43ba546fb9d31","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
