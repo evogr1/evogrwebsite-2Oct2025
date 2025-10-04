@@ -4,6 +4,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Evogr Solutions - Redefining Solutions</title>
     <meta name="description" content="Nationwide manpower & consultancy by Ex-Army professionals. Professional staffing solutions across India." />
     <meta name="author" content="Evogr Solutions Private Limited" />
@@ -19,139 +22,110 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" crossorigin href="/assets/index-i2QypV5M.css">
     <style>
-      /* Prevent Flash of Unstyled Content */
-      body {
-        opacity: 0;
-        transition: opacity 0.2s ease-in;
+      /* CRITICAL: Prevent Flash of Unstyled Content */
+      html {
+        visibility: visible;
+        opacity: 1;
       }
 
-      body.loaded {
-        opacity: 1;
+      body {
+        opacity: 0;
+        transition: opacity 0.15s ease-in;
+      }
+
+      body.page-loaded {
+        opacity: 1 !important;
       }
 
       /* Hero section spacing - Move content UP closer to header */
       section[id="home"] {
-        padding-top: 4rem !important;
+        padding-top: 5rem !important;
       }
 
-      .hero-title {
+      .hero-title, h1:first-of-type {
         margin-top: 0 !important;
       }
 
-      .hero-subtitle-hidden {
+      /* Hide subtitle on hero */
+      section[id="home"] .section-subtitle {
         display: none !important;
       }
 
-      .hero-buttons-tighter {
-        margin-top: 2rem !important;
+      /* Adjust button spacing */
+      section[id="home"] .flex.flex-col {
+        margin-top: 2.5rem !important;
       }
 
-      .hero-stats-tighter {
-        margin-top: 3rem !important;
-      }
-
-      .hero-mouse-hidden {
+      /* Hide mouse bounce indicator */
+      section[id="home"] .animate-bounce {
         display: none !important;
       }
 
-      /* Logo Carousel - Enhanced Visibility */
-      .logo-carousel-section {
+      /* Logo Carousel - CRITICAL VISIBILITY */
+      .evogr-logo-carousel {
         width: 100%;
-        min-height: 120px;
-        padding: 4rem 0 4rem 0;
-        background: transparent;
-        position: relative;
+        max-width: 1400px;
+        margin: 5rem auto 0;
+        padding: 0 20px;
         overflow: hidden;
-        margin-top: 0;
+        height: 100px;
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
-        z-index: 10;
+        z-index: 100;
+        background: transparent;
       }
 
-      .logo-carousel-track-wrapper {
-        position: relative;
-        width: 100%;
-        height: 100px;
-        overflow: hidden;
-        display: block;
-        mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      .evogr-logo-track {
+        display: flex !important;
+        gap: 80px;
+        animation: evogr-scroll 30s linear infinite;
+        width: max-content;
       }
 
-      .logo-carousel-track {
-        display: flex;
-        animation: scroll-logos 25s linear infinite;
-        will-change: transform;
-        height: 100%;
-      }
-
-      .logo-carousel-item {
-        flex: 0 0 250px;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 3rem;
-        opacity: 0.7 !important;
-        transition: opacity 0.3s ease;
-      }
-
-      .logo-carousel-item:hover {
-        opacity: 1 !important;
-      }
-
-      .logo-carousel-item img {
-        max-width: 160px;
-        max-height: 70px;
+      .evogr-logo-track img {
+        height: 60px;
         width: auto;
-        height: auto;
         object-fit: contain;
-        display: block;
-        filter: brightness(0.9) contrast(1.1);
+        filter: brightness(0) invert(1);
+        opacity: 0.65;
+        transition: opacity 0.3s ease;
+        display: block !important;
       }
 
-      @keyframes scroll-logos {
+      .evogr-logo-track img:hover {
+        opacity: 0.9;
+      }
+
+      @keyframes evogr-scroll {
         0% {
           transform: translateX(0);
         }
         100% {
-          transform: translateX(calc(-250px * 5));
+          transform: translateX(-50%);
         }
+      }
+
+      .evogr-logo-track:hover {
+        animation-play-state: paused;
       }
 
       @media (max-width: 768px) {
         section[id="home"] {
-          padding-top: 3rem !important;
+          padding-top: 3.5rem !important;
         }
 
-        .logo-carousel-section {
-          min-height: 90px;
-          padding: 2rem 0 3rem 0;
+        .evogr-logo-carousel {
+          height: 70px;
+          margin-top: 3rem;
         }
 
-        .logo-carousel-track-wrapper {
-          height: 80px;
+        .evogr-logo-track {
+          gap: 50px;
         }
 
-        .logo-carousel-item {
-          flex: 0 0 200px;
-          height: 80px;
-          padding: 0 2rem;
-        }
-
-        .logo-carousel-item img {
-          max-width: 120px;
-          max-height: 50px;
-        }
-
-        @keyframes scroll-logos {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(calc(-200px * 5));
-          }
+        .evogr-logo-track img {
+          height: 45px;
         }
       }
     </style>
@@ -162,86 +136,86 @@
     <div id="root"></div>
 
     <script>
-      // Apply styles immediately - no delay
+      // CRITICAL: Immediate execution to prevent FOUC
       (function() {
-        // Wait for DOM to be ready
-        function applyStyles() {
-          // Hide subtitle
-          const subtitle = document.querySelector('.section-subtitle');
-          if (subtitle) {
-            subtitle.classList.add('hero-subtitle-hidden');
-          }
+        let carouselAdded = false;
+        let retryCount = 0;
+        const maxRetries = 20;
 
-          // Adjust title spacing
-          const title = document.querySelector('h1');
-          if (title) {
-            title.classList.add('hero-title');
-          }
+        function addCarousel() {
+          if (carouselAdded || retryCount >= maxRetries) return;
+          retryCount++;
 
-          // Adjust buttons spacing
-          const buttonsContainer = document.querySelector('.flex.flex-col.sm\\:flex-row');
-          if (buttonsContainer) {
-            buttonsContainer.classList.add('hero-buttons-tighter');
-          }
-
-          // Adjust stats spacing
-          const statsContainer = buttonsContainer?.nextElementSibling;
-          if (statsContainer) {
-            statsContainer.classList.add('hero-stats-tighter');
-          }
-
-          // Hide mouse indicator
-          const mouseIndicator = document.querySelector('.animate-bounce');
-          if (mouseIndicator) {
-            mouseIndicator.classList.add('hero-mouse-hidden');
-          }
-
-          // Create and add logo carousel
-          const rootElement = document.getElementById('root');
-          if (!rootElement || !rootElement.firstChild) {
-            // Retry if root not ready
-            setTimeout(applyStyles, 50);
+          const heroSection = document.querySelector('#home');
+          if (!heroSection) {
+            requestAnimationFrame(addCarousel);
             return;
           }
 
-          const carouselHTML = `
-            <section class="logo-carousel-section">
-              <div class="logo-carousel-track-wrapper">
-                <div class="logo-carousel-track">
-                  <div class="logo-carousel-item"><img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" loading="eager" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" loading="eager" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" loading="eager" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" loading="eager" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" loading="eager" /></div>
-
-                  <div class="logo-carousel-item"><img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" loading="eager" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" loading="eager" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" loading="eager" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" loading="eager" /></div>
-                  <div class="logo-carousel-item"><img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" loading="eager" /></div>
-                </div>
-              </div>
-            </section>
-          `;
-
-          const carouselElement = document.createElement('div');
-          carouselElement.innerHTML = carouselHTML;
-
-          const heroSection = document.querySelector('#home') || document.querySelector('section');
-          if (heroSection && heroSection.parentNode) {
-            heroSection.parentNode.insertBefore(carouselElement.firstChild, heroSection.nextSibling);
+          // Check if carousel already exists
+          if (document.querySelector('.evogr-logo-carousel')) {
+            carouselAdded = true;
+            document.body.classList.add('page-loaded');
+            return;
           }
 
-          // Show body after everything is ready
-          document.body.classList.add('loaded');
+          // Create carousel with inline styles for guaranteed visibility
+          const carousel = document.createElement('div');
+          carousel.className = 'evogr-logo-carousel';
+          carousel.innerHTML = `
+            <div class="evogr-logo-track">
+              <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="140" height="60" loading="eager" />
+            </div>
+          `;
+
+          // Insert after hero section
+          if (heroSection.nextSibling) {
+            heroSection.parentNode.insertBefore(carousel, heroSection.nextSibling);
+          } else {
+            heroSection.parentNode.appendChild(carousel);
+          }
+
+          carouselAdded = true;
+          document.body.classList.add('page-loaded');
         }
 
+        // Start immediately
         if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', applyStyles);
+          document.addEventListener('DOMContentLoaded', addCarousel);
         } else {
-          applyStyles();
+          addCarousel();
         }
+
+        // Also try after React renders
+        window.addEventListener('load', addCarousel);
+        setTimeout(addCarousel, 100);
+        setTimeout(addCarousel, 500);
+        setTimeout(addCarousel, 1000);
       })();
+
+      // Fix navigation to prevent old version loading
+      window.addEventListener('load', function() {
+        // Force re-render on navigation
+        const logoLinks = document.querySelectorAll('a[href="/"], [onclick*="/"]');
+        logoLinks.forEach(function(link) {
+          if (link.textContent.includes('Evogr')) {
+            link.addEventListener('click', function(e) {
+              e.preventDefault();
+              window.location.href = '/';
+              window.location.reload();
+            });
+          }
+        });
+      });
     </script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"e76faca2e13d4764b0e43ba546fb9d31","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
