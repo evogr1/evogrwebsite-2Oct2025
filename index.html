@@ -37,13 +37,16 @@
         opacity: 1 !important;
       }
 
-      /* Hero section spacing - Move content UP closer to header */
+      /* TASK 9: Hero section spacing - Compressed for above-fold visibility */
       section[id="home"] {
         padding-top: 5rem !important;
+        min-height: 85vh !important;
+        padding-bottom: 3rem !important;
       }
 
       .hero-title, h1:first-of-type {
         margin-top: 0 !important;
+        margin-bottom: 0 !important;
       }
 
       /* Hide subtitle on hero */
@@ -51,8 +54,14 @@
         display: none !important;
       }
 
-      /* Adjust button spacing */
+      /* TASK 9: Tighter button spacing */
       section[id="home"] .flex.flex-col {
+        margin-top: 2rem !important;
+        margin-bottom: 0 !important;
+      }
+
+      /* TASK 9: Tighter stats spacing */
+      section[id="home"] > div > div > div:last-child {
         margin-top: 2.5rem !important;
       }
 
@@ -61,11 +70,11 @@
         display: none !important;
       }
 
-      /* Logo Carousel - CRITICAL VISIBILITY + TASK FIXES */
+      /* Logo Carousel - CRITICAL VISIBILITY + ALL TASK FIXES */
       .evogr-logo-carousel {
         width: 100%;
         max-width: 1400px;
-        margin: 2rem auto 0; /* TASK 4: Reduced from 5rem to 2rem for above-fold visibility */
+        margin: 1.5rem auto 0; /* TASK 9: Further reduced from 2rem to 1.5rem */
         padding: 0 20px;
         overflow: hidden;
         height: 100px;
@@ -81,7 +90,7 @@
       .evogr-logo-track {
         display: flex !important;
         gap: 70px;
-        animation: evogr-scroll-seamless 40s linear infinite; /* TASK 3 & 5: Increased duration for 9 logos */
+        animation: evogr-scroll-seamless 44s linear infinite; /* TASK 7: Adjusted for 11 logos */
         width: max-content;
         will-change: transform;
         backface-visibility: hidden;
@@ -122,7 +131,7 @@
 
         .evogr-logo-carousel {
           height: 70px;
-          margin-top: 1.5rem; /* TASK 4: Reduced for mobile */
+          margin-top: 1rem; /* TASK 9: Further reduced for mobile */
         }
 
         .evogr-logo-track {
@@ -165,7 +174,7 @@
             return;
           }
 
-          // Create carousel with 9 logos (TASK 3: Added 5 new logos)
+          // TASK 7: Create carousel with 11 logos (added 2 more)
           const carousel = document.createElement('div');
           carousel.className = 'evogr-logo-carousel';
           carousel.setAttribute('data-carousel-mounted', 'true');
@@ -180,6 +189,8 @@
               <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
               <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
               <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/GYP_drive_logos_3_page-0001-removebg-preview.png" alt="GypDrive" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/Vem-Logo-IMG.png" alt="VEM Technologies" width="120" height="60" loading="eager" />
 
               <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
               <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
@@ -190,6 +201,8 @@
               <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
               <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
               <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/GYP_drive_logos_3_page-0001-removebg-preview.png" alt="GypDrive" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/Vem-Logo-IMG.png" alt="VEM Technologies" width="120" height="60" loading="eager" />
             </div>
           `;
 
@@ -254,6 +267,8 @@
                       <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
                       <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
                       <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/GYP_drive_logos_3_page-0001-removebg-preview.png" alt="GypDrive" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/Vem-Logo-IMG.png" alt="VEM Technologies" width="120" height="60" loading="eager" />
                       <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
                       <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
                       <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="120" height="60" loading="eager" />
@@ -263,6 +278,8 @@
                       <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
                       <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
                       <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/GYP_drive_logos_3_page-0001-removebg-preview.png" alt="GypDrive" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/Vem-Logo-IMG.png" alt="VEM Technologies" width="120" height="60" loading="eager" />
                     </div>
                   `;
                   if (heroSection.nextSibling) {
