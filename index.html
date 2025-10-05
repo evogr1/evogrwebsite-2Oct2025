@@ -61,11 +61,11 @@
         display: none !important;
       }
 
-      /* Logo Carousel - CRITICAL VISIBILITY */
+      /* Logo Carousel - CRITICAL VISIBILITY + TASK FIXES */
       .evogr-logo-carousel {
         width: 100%;
         max-width: 1400px;
-        margin: 5rem auto 0;
+        margin: 2rem auto 0; /* TASK 4: Reduced from 5rem to 2rem for above-fold visibility */
         padding: 0 20px;
         overflow: hidden;
         height: 100px;
@@ -74,41 +74,46 @@
         opacity: 1 !important;
         z-index: 100;
         background: transparent;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
       }
 
       .evogr-logo-track {
         display: flex !important;
-        gap: 80px;
-        animation: evogr-scroll 30s linear infinite;
+        gap: 70px;
+        animation: evogr-scroll-seamless 40s linear infinite; /* TASK 3 & 5: Increased duration for 9 logos */
         width: max-content;
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translate3d(0, 0, 0);
       }
 
       .evogr-logo-track img {
         height: 60px;
-        width: auto;
+        width: 120px; /* TASK 5: Fixed width for consistency */
         object-fit: contain;
         filter: brightness(0) invert(1);
-        opacity: 0.65;
+        opacity: 0.7;
         transition: opacity 0.3s ease;
         display: block !important;
+        flex-shrink: 0;
       }
 
       .evogr-logo-track img:hover {
-        opacity: 0.9;
+        opacity: 0.95;
       }
 
-      @keyframes evogr-scroll {
+      @keyframes evogr-scroll-seamless {
         0% {
           transform: translateX(0);
         }
         100% {
-          transform: translateX(-50%);
+          transform: translateX(-50%); /* TASK 5: Perfect seamless loop */
         }
       }
 
-      .evogr-logo-track:hover {
-        animation-play-state: paused;
-      }
+      /* TASK 2: Removed hover pause - animation never stops */
 
       @media (max-width: 768px) {
         section[id="home"] {
@@ -117,7 +122,7 @@
 
         .evogr-logo-carousel {
           height: 70px;
-          margin-top: 3rem;
+          margin-top: 1.5rem; /* TASK 4: Reduced for mobile */
         }
 
         .evogr-logo-track {
@@ -126,6 +131,7 @@
 
         .evogr-logo-track img {
           height: 45px;
+          width: 90px;
         }
       }
     </style>
@@ -159,21 +165,31 @@
             return;
           }
 
-          // Create carousel with inline styles for guaranteed visibility
+          // Create carousel with 9 logos (TASK 3: Added 5 new logos)
           const carousel = document.createElement('div');
           carousel.className = 'evogr-logo-carousel';
+          carousel.setAttribute('data-carousel-mounted', 'true');
           carousel.innerHTML = `
             <div class="evogr-logo-track">
-              <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="140" height="60" loading="eager" />
-              <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="140" height="60" loading="eager" />
-              <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="140" height="60" loading="eager" />
-              <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="140" height="60" loading="eager" />
-              <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="140" height="60" loading="eager" />
-              <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="140" height="60" loading="eager" />
-              <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="140" height="60" loading="eager" />
-              <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="140" height="60" loading="eager" />
-              <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="140" height="60" loading="eager" />
-              <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="140" height="60" loading="eager" />
+              <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/Mufin-Green-Logo-For-Website-01-01.png" alt="Mufin" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
+
+              <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/Mufin-Green-Logo-For-Website-01-01.png" alt="Mufin" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
+              <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
             </div>
           `;
 
@@ -195,25 +211,75 @@
           addCarousel();
         }
 
-        // Also try after React renders
+        // TASK 6: Also try after React renders with persistence check
         window.addEventListener('load', addCarousel);
         setTimeout(addCarousel, 100);
         setTimeout(addCarousel, 500);
         setTimeout(addCarousel, 1000);
+
+        // TASK 6: Re-check on route changes
+        let lastPath = window.location.pathname;
+        setInterval(function() {
+          if (window.location.pathname !== lastPath) {
+            lastPath = window.location.pathname;
+            if (lastPath === '/') {
+              setTimeout(addCarousel, 50);
+              setTimeout(addCarousel, 200);
+            }
+          }
+        }, 100);
       })();
 
-      // Fix navigation to prevent old version loading
+      // TASK 1 & 6: Fix navigation - Footer links and homepage persistence
       window.addEventListener('load', function() {
-        // Force re-render on navigation
-        const logoLinks = document.querySelectorAll('a[href="/"], [onclick*="/"]');
-        logoLinks.forEach(function(link) {
-          if (link.textContent.includes('Evogr')) {
-            link.addEventListener('click', function(e) {
-              e.preventDefault();
-              window.location.href = '/';
-              window.location.reload();
-            });
+        // Monitor for route changes and ensure carousel persists
+        const observer = new MutationObserver(function() {
+          if (window.location.pathname === '/') {
+            const carousel = document.querySelector('.evogr-logo-carousel');
+            if (!carousel || !carousel.getAttribute('data-carousel-mounted')) {
+              setTimeout(function() {
+                const heroSection = document.querySelector('#home');
+                if (heroSection && !document.querySelector('.evogr-logo-carousel')) {
+                  const newCarousel = document.createElement('div');
+                  newCarousel.className = 'evogr-logo-carousel';
+                  newCarousel.setAttribute('data-carousel-mounted', 'true');
+                  newCarousel.innerHTML = `
+                    <div class="evogr-logo-track">
+                      <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/Mufin-Green-Logo-For-Website-01-01.png" alt="Mufin" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/Mufin-Green-Logo-For-Website-01-01.png" alt="Mufin" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
+                      <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
+                    </div>
+                  `;
+                  if (heroSection.nextSibling) {
+                    heroSection.parentNode.insertBefore(newCarousel, heroSection.nextSibling);
+                  } else {
+                    heroSection.parentNode.appendChild(newCarousel);
+                  }
+                  document.body.classList.add('page-loaded');
+                }
+              }, 100);
+            }
           }
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
         });
       });
     </script>
