@@ -109,6 +109,11 @@
         flex-shrink: 0;
       }
 
+      .evogr-logo-track a {
+        display: block;
+        flex-shrink: 0;
+      }
+
       .evogr-logo-track img:hover {
         opacity: 0.95;
       }
@@ -174,35 +179,36 @@
             return;
           }
 
-          // TASK 7: Create carousel with 11 logos (added 2 more)
+          // Logo list: { file, alt, url }. Rendered twice for the seamless loop.
+          const logos = [
+            { file: 'Pharmeasy-1.png', alt: 'PharmEasy', url: 'https://pharmeasy.in' },
+            { file: 'gmr-group-logo-png_seeklogo-310947.png', alt: 'GMR Group', url: 'https://www.gmrgroup.in' },
+            { file: 'cropped-logo-chola.png', alt: 'Chola MS', url: 'https://www.cholainsurance.com' },
+            { file: 'Hyundai_Motor_Company_logo.svg.png', alt: 'Hyundai', url: 'https://www.hyundai.com/in' },
+            { file: 'SCHIEBEL.png', alt: 'Schiebel', url: 'https://schiebel.net' },
+            { file: 'Mufin-Green-Logo-For-Website-01-01.png', alt: 'Mufin', url: 'https://mufingreenfinance.com' },
+            { file: 'Bennett-University-logo1-.png', alt: 'Bennett University', url: 'https://www.bennett.edu.in' },
+            { file: 'MAHE_Logo_transparentBG.png', alt: 'Manipal', url: 'https://manipal.edu' },
+            { file: 'tulip_logo_ng-removebg-preview.png', alt: 'Tulip', url: '' },
+            { file: 'GYP_drive_logos_3_page-0001-removebg-preview.png', alt: 'GypDrive', url: 'https://gypdrivefasteners.com' },
+            { file: 'larsen-toubro.svg', alt: 'L&T', url: 'https://www.larsentoubro.com' },
+            { file: 'chandigarh-university.png', alt: 'Chandigarh University', url: 'https://www.cuchd.in' },
+            { file: 'eid-parry.png', alt: 'EID Parry', url: 'https://eidparry.com' },
+            { file: 'aditya-birla.png', alt: 'Aditya Birla Group', url: 'https://www.adityabirla.com' }
+          ];
+          const logoHtml = (l) => {
+            const img = `<img src="/assets/logos/${l.file}" alt="${l.alt}" width="120" height="60" loading="eager" />`;
+            return l.url
+              ? `<a href="${l.url}" target="_blank" rel="noopener noreferrer" aria-label="${l.alt}">${img}</a>`
+              : img;
+          };
           const carousel = document.createElement('div');
           carousel.className = 'evogr-logo-carousel';
           carousel.setAttribute('data-carousel-mounted', 'true');
           carousel.innerHTML = `
             <div class="evogr-logo-track">
-              <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/Mufin-Green-Logo-For-Website-01-01.png" alt="Mufin" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/GYP_drive_logos_3_page-0001-removebg-preview.png" alt="GypDrive" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/Vem-Logo-IMG.png" alt="VEM Technologies" width="120" height="60" loading="eager" />
-
-              <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/Mufin-Green-Logo-For-Website-01-01.png" alt="Mufin" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/GYP_drive_logos_3_page-0001-removebg-preview.png" alt="GypDrive" width="120" height="60" loading="eager" />
-              <img src="/assets/logos/Vem-Logo-IMG.png" alt="VEM Technologies" width="120" height="60" loading="eager" />
+              ${logos.map(logoHtml).join('')}
+              ${logos.map(logoHtml).join('')}
             </div>
           `;
 
