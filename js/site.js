@@ -21,20 +21,17 @@
   // ---- Testimonials ----
   document.querySelectorAll('[data-slider]').forEach(function (root) {
     var slides = [].slice.call(root.querySelectorAll('.q-slide'));
-    var dots = root.querySelector('.q-nav');
+    var count = root.querySelector('.q-count');
     var i = 0, timer;
     function show(n) {
       i = (n + slides.length) % slides.length;
       slides.forEach(function (s, k) { s.hidden = k !== i; });
-      if (dots) [].forEach.call(dots.children, function (d, k) { d.setAttribute('aria-current', String(k === i)); });
+      if (count) count.textContent = (i + 1) + ' / ' + slides.length;
     }
-    if (dots) slides.forEach(function (_, k) {
-      var d = document.createElement('button');
-      d.type = 'button'; d.setAttribute('aria-label', 'Show testimonial ' + (k + 1));
-      d.addEventListener('click', function () { show(k); restart(); });
-      dots.appendChild(d);
+    function restart() { clearInterval(timer); timer = setInterval(function () { show(i + 1); }, 12000); }
+    root.querySelectorAll('[data-q]').forEach(function (b) {
+      b.addEventListener('click', function () { show(i + (b.getAttribute('data-q') === 'next' ? 1 : -1)); restart(); });
     });
-    function restart() { clearInterval(timer); timer = setInterval(function () { show(i + 1); }, 9000); }
     show(0); restart();
     root.addEventListener('mouseenter', function () { clearInterval(timer); });
     root.addEventListener('mouseleave', restart);

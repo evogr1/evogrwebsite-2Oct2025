@@ -45,12 +45,16 @@ const icon = (n) => `<svg viewBox="0 0 24 24" width="24" height="24" fill="none"
 
 const esc = (x) => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const testimonials = JSON.parse(read('testimonials.json'));
-const slider = `<div class="quote" data-slider>${testimonials
-  .map((t) => `<figure class="q-slide" style="margin:0"><div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>&ldquo;${esc(t.quote)}&rdquo;</blockquote><figcaption class="who"><strong>${esc(t.author ?? t.name)}</strong><span>${esc(t.position)}, ${esc(t.company)}</span></figcaption></figure>`)
-  .join('')}<div class="q-nav" role="group" aria-label="Testimonials"></div></div>`;
+const quoteName = (t) => t.author ?? t.name;
+const slider = `<div class="pull" data-slider>${testimonials
+  .map((t) => `<figure class="q-slide" style="margin:0"><blockquote>&ldquo;${esc(t.quote)}&rdquo;</blockquote><figcaption class="who"><div><strong>${esc(quoteName(t))}</strong><span>${esc(t.position)}, ${esc(t.company)}</span></div></figcaption></figure>`)
+  .join('')}<div class="q-ctl" style="margin-top:22px"><button type="button" data-q="prev" aria-label="Previous testimonial">&larr;</button><span class="q-count" aria-live="polite"></span><button type="button" data-q="next" aria-label="Next testimonial">&rarr;</button></div></div>`;
+const quoteList = `<div class="quote-list">${testimonials
+  .map((t) => `<div class="quote-item"><div class="by"><strong>${esc(quoteName(t))}</strong><span>${esc(t.position)}<br>${esc(t.company)}</span></div><blockquote>&ldquo;${esc(t.quote)}&rdquo;</blockquote></div>`)
+  .join('')}</div>`;
 
-const logoWall = `<div class="grid g4 logo-wall">${logos
-  .map((l) => `<${l.url ? 'a href="' + l.url + '" target="_blank" rel="noopener noreferrer"' : 'div'} class="card logo-tile" aria-label="${l.alt}"><img src="/assets/logos/${l.file}" alt="${l.alt}" loading="lazy"></${l.url ? 'a' : 'div'}>`)
+const logoWall = `<div class="logo-wall">${logos
+  .map((l) => `<${l.url ? 'a href="' + l.url + '" target="_blank" rel="noopener noreferrer"' : 'div'} aria-label="${l.alt}"><img src="/assets/logos/${l.file}" alt="${l.alt}" loading="lazy"></${l.url ? 'a' : 'div'}>`)
   .join('')}</div>`;
 
 const partials = {
@@ -80,12 +84,17 @@ for (const file of walk(pagesDir)) {
     .replace(/{{desc}}/g, meta.desc || '')
     .replace(/{{canonical}}/g, SITE + (meta.noindex ? '' : urlPath))
     .replace(/{{robots}}/g, meta.noindex ? '<meta name="robots" content="noindex">' : '');
-  const header = partials.header.replace(new RegExp(`data-nav="${meta.nav}"`, 'g'), `data-nav="${meta.nav}" class="active" aria-current="page"`);
+  const header = partials.header.replace(/<(a|button)\b[^>]*data-nav="([^"]+)"[^>]*>/g, (tag, _t, nav) => {
+    if (nav !== meta.nav) return tag;
+    const withClass = /class="([^"]*)"/.test(tag) ? tag.replace(/class="([^"]*)"/, 'class="$1 active"') : tag.replace(/^<(\w+)/, '<$1 class="active"');
+    return withClass.replace(/>$/, ' aria-current="page">');
+  });
 
   const html = `<!doctype html>\n<html lang="en">\n<head>\n${head}\n</head>\n<body>\n<a class="skip" href="#main">Skip to content</a>\n${header}\n<main id="main">\n${src
     .replace(/{{marquee}}/g, marquee)
     .replace(/{{logowall}}/g, logoWall)
     .replace(/{{testimonials}}/g, slider)
+    .replace(/{{quotelist}}/g, quoteList)
     .replace(/{{icon:(\w+)}}/g, (_, n) => icon(n))}\n</main>\n${partials.footer}\n<script src="/js/site.js" defer></script>\n</body>\n</html>\n`;
 
   const out = path.join(root, rel);
