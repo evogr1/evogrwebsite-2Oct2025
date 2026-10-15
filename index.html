@@ -167,156 +167,78 @@
     <div id="root"></div>
 
     <script>
-      // CRITICAL: Immediate execution to prevent FOUC
-      (function() {
-        let carouselAdded = false;
-        let retryCount = 0;
-        const maxRetries = 20;
+      // Logo marquee: one mount function, re-run whenever the SPA re-renders or the route changes.
+      (function () {
+        const LOGOS = [
+          { file: 'Pharmeasy-1.png', alt: 'PharmEasy', url: 'https://pharmeasy.in' },
+          { file: 'gmr-group-logo-png_seeklogo-310947.png', alt: 'GMR Group', url: 'https://www.gmrgroup.in' },
+          { file: 'cropped-logo-chola.png', alt: 'Chola MS', url: 'https://www.cholainsurance.com' },
+          { file: 'Hyundai_Motor_Company_logo.svg.png', alt: 'Hyundai', url: 'https://www.hyundai.com/in' },
+          { file: 'SCHIEBEL.png', alt: 'Schiebel', url: 'https://schiebel.net' },
+          { file: 'Mufin-Green-Logo-For-Website-01-01.png', alt: 'Mufin', url: 'https://mufingreenfinance.com' },
+          { file: 'Bennett-University-logo1-.png', alt: 'Bennett University', url: 'https://www.bennett.edu.in' },
+          { file: 'MAHE_Logo_transparentBG.png', alt: 'Manipal', url: 'https://manipal.edu' },
+          { file: 'tulip_logo_ng-removebg-preview.png', alt: 'Tulip', url: 'https://www.tulipcompression.com' },
+          { file: 'GYP_drive_logos_3_page-0001-removebg-preview.png', alt: 'GypDrive', url: 'https://gypdrivefasteners.com' },
+          { file: 'larsen-toubro.png', alt: 'Larsen & Toubro', url: 'https://www.larsentoubro.com' },
+          { file: 'chandigarh-university.png', alt: 'Chandigarh University', url: 'https://www.cuchd.in' },
+          { file: 'eid-parry.jpg', alt: 'EID Parry', url: 'https://eidparry.com' },
+          { file: 'aditya-birla.jpg', alt: 'Aditya Birla Group', url: 'https://www.adityabirla.com' },
+          { file: 'navyug-defence.png', alt: 'Navyug Defence', url: '' }
+        ];
 
-        function addCarousel() {
-          if (carouselAdded || retryCount >= maxRetries) return;
-          retryCount++;
+        function tile(l) {
+          var img = '<img src="/assets/logos/' + l.file + '" alt="' + l.alt + '" width="120" height="60" loading="eager" />';
+          return l.url
+            ? '<a class="evogr-logo-tile" href="' + l.url + '" target="_blank" rel="noopener noreferrer" aria-label="' + l.alt + '">' + img + '</a>'
+            : '<div class="evogr-logo-tile">' + img + '</div>';
+        }
 
-          const heroSection = document.querySelector('#home');
-          if (!heroSection) {
-            requestAnimationFrame(addCarousel);
+        var TRACK_HTML = '<div class="evogr-logo-track">' +
+          LOGOS.map(tile).join('') + LOGOS.map(tile).join('') + '</div>';
+
+        // The marquee belongs directly after the hero (#home), on the home page only.
+        function sync() {
+          var hero = document.querySelector('#home');
+          var existing = document.querySelector('.evogr-logo-carousel');
+
+          if (!hero) {
+            if (existing) existing.remove();
             return;
           }
+          if (existing && existing.previousElementSibling === hero) return;
+          if (existing) existing.remove();
 
-          // Check if carousel already exists
-          if (document.querySelector('.evogr-logo-carousel')) {
-            carouselAdded = true;
-            document.body.classList.add('page-loaded');
-            return;
-          }
-
-          // Logo list: { file, alt, url }. Rendered twice for the seamless loop.
-          const logos = [
-            { file: 'Pharmeasy-1.png', alt: 'PharmEasy', url: 'https://pharmeasy.in' },
-            { file: 'gmr-group-logo-png_seeklogo-310947.png', alt: 'GMR Group', url: 'https://www.gmrgroup.in' },
-            { file: 'cropped-logo-chola.png', alt: 'Chola MS', url: 'https://www.cholainsurance.com' },
-            { file: 'Hyundai_Motor_Company_logo.svg.png', alt: 'Hyundai', url: 'https://www.hyundai.com/in' },
-            { file: 'SCHIEBEL.png', alt: 'Schiebel', url: 'https://schiebel.net' },
-            { file: 'Mufin-Green-Logo-For-Website-01-01.png', alt: 'Mufin', url: 'https://mufingreenfinance.com' },
-            { file: 'Bennett-University-logo1-.png', alt: 'Bennett University', url: 'https://www.bennett.edu.in' },
-            { file: 'MAHE_Logo_transparentBG.png', alt: 'Manipal', url: 'https://manipal.edu' },
-            { file: 'tulip_logo_ng-removebg-preview.png', alt: 'Tulip', url: 'https://www.tulipcompression.com' },
-            { file: 'GYP_drive_logos_3_page-0001-removebg-preview.png', alt: 'GypDrive', url: 'https://gypdrivefasteners.com' },
-            { file: 'larsen-toubro.png', alt: 'Larsen & Toubro', url: 'https://www.larsentoubro.com' },
-            { file: 'chandigarh-university.png', alt: 'Chandigarh University', url: 'https://www.cuchd.in' },
-            { file: 'eid-parry.jpg', alt: 'EID Parry', url: 'https://eidparry.com' },
-            { file: 'aditya-birla.jpg', alt: 'Aditya Birla Group', url: 'https://www.adityabirla.com' },
-            { file: 'navyug-defence.png', alt: 'Navyug Defence', url: '' }
-          ];
-          const logoHtml = (l) => {
-            const img = `<img src="/assets/logos/${l.file}" alt="${l.alt}" width="120" height="60" loading="eager" />`;
-            return l.url
-              ? `<a class="evogr-logo-tile" href="${l.url}" target="_blank" rel="noopener noreferrer" aria-label="${l.alt}">${img}</a>`
-              : `<div class="evogr-logo-tile">${img}</div>`;
-          };
-          const carousel = document.createElement('div');
+          var carousel = document.createElement('div');
           carousel.className = 'evogr-logo-carousel';
           carousel.setAttribute('data-carousel-mounted', 'true');
-          carousel.innerHTML = `
-            <div class="evogr-logo-track">
-              ${logos.map(logoHtml).join('')}
-              ${logos.map(logoHtml).join('')}
-            </div>
-          `;
-
-          // Insert after hero section
-          if (heroSection.nextSibling) {
-            heroSection.parentNode.insertBefore(carousel, heroSection.nextSibling);
-          } else {
-            heroSection.parentNode.appendChild(carousel);
-          }
-
-          carouselAdded = true;
+          carousel.innerHTML = TRACK_HTML;
+          hero.parentNode.insertBefore(carousel, hero.nextSibling);
           document.body.classList.add('page-loaded');
         }
 
-        // Start immediately
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', addCarousel);
-        } else {
-          addCarousel();
+        // Coalesce bursts of DOM mutations into one check per frame.
+        var queued = false;
+        function schedule() {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; sync(); });
         }
 
-        // TASK 6: Also try after React renders with persistence check
-        window.addEventListener('load', addCarousel);
-        setTimeout(addCarousel, 100);
-        setTimeout(addCarousel, 500);
-        setTimeout(addCarousel, 1000);
+        new MutationObserver(schedule).observe(document.documentElement, { childList: true, subtree: true });
+        window.addEventListener('popstate', schedule);
+        ['pushState', 'replaceState'].forEach(function (m) {
+          var orig = history[m];
+          history[m] = function () { var r = orig.apply(this, arguments); schedule(); return r; };
+        });
 
-        // TASK 6: Re-check on route changes
-        let lastPath = window.location.pathname;
-        setInterval(function() {
-          if (window.location.pathname !== lastPath) {
-            lastPath = window.location.pathname;
-            if (lastPath === '/') {
-              setTimeout(addCarousel, 50);
-              setTimeout(addCarousel, 200);
-            }
-          }
-        }, 100);
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', schedule);
+        } else {
+          schedule();
+        }
+        window.addEventListener('load', schedule);
       })();
-
-      // TASK 1 & 6: Fix navigation - Footer links and homepage persistence
-      window.addEventListener('load', function() {
-        // Monitor for route changes and ensure carousel persists
-        const observer = new MutationObserver(function() {
-          if (window.location.pathname === '/') {
-            const carousel = document.querySelector('.evogr-logo-carousel');
-            if (!carousel || !carousel.getAttribute('data-carousel-mounted')) {
-              setTimeout(function() {
-                const heroSection = document.querySelector('#home');
-                if (heroSection && !document.querySelector('.evogr-logo-carousel')) {
-                  const newCarousel = document.createElement('div');
-                  newCarousel.className = 'evogr-logo-carousel';
-                  newCarousel.setAttribute('data-carousel-mounted', 'true');
-                  newCarousel.innerHTML = `
-                    <div class="evogr-logo-track">
-                      <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/Mufin-Green-Logo-For-Website-01-01.png" alt="Mufin" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/GYP_drive_logos_3_page-0001-removebg-preview.png" alt="GypDrive" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/Vem-Logo-IMG.png" alt="VEM Technologies" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/Pharmeasy-1.png" alt="PharmEasy" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/gmr-group-logo-png_seeklogo-310947.png" alt="GMR Group" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/cropped-logo-chola.png" alt="Chola MS" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/SCHIEBEL.png" alt="Schiebel" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/Mufin-Green-Logo-For-Website-01-01.png" alt="Mufin" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/Bennett-University-logo1-.png" alt="Bennett University" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/MAHE_Logo_transparentBG.png" alt="Manipal" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/tulip_logo_ng-removebg-preview.png" alt="Tulip" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/GYP_drive_logos_3_page-0001-removebg-preview.png" alt="GypDrive" width="120" height="60" loading="eager" />
-                      <img src="/assets/logos/Vem-Logo-IMG.png" alt="VEM Technologies" width="120" height="60" loading="eager" />
-                    </div>
-                  `;
-                  if (heroSection.nextSibling) {
-                    heroSection.parentNode.insertBefore(newCarousel, heroSection.nextSibling);
-                  } else {
-                    heroSection.parentNode.appendChild(newCarousel);
-                  }
-                  document.body.classList.add('page-loaded');
-                }
-              }, 100);
-            }
-          }
-        });
-
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true
-        });
-      });
     </script>
   <script>
       // Web3Forms: forward the Contact form (/contact) submission to email. The React form
