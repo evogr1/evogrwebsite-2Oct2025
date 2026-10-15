@@ -159,6 +159,38 @@
           padding: 8px 10px;
         }
       }
+
+      /* ---- Layout patch: use the full width, tighten vertical rhythm ---- */
+      .max-w-7xl { max-width: 1680px !important; }
+      .max-w-6xl { max-width: 1440px !important; }
+      .max-w-4xl { max-width: 1120px !important; }
+      .max-w-3xl { max-width: 960px !important; }
+      .max-w-2xl { max-width: 780px !important; }
+      .max-w-7xl.mx-auto, .max-w-6xl.mx-auto {
+        padding-left: clamp(16px, 3.2vw, 56px) !important;
+        padding-right: clamp(16px, 3.2vw, 56px) !important;
+      }
+
+      section.py-20 { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+      section.py-16 { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+      section.pt-20.pb-16 { padding-top: 3.5rem !important; padding-bottom: 2.5rem !important; }
+      .mb-16 { margin-bottom: 2.5rem !important; }
+      .mb-12 { margin-bottom: 2rem !important; }
+      .mb-8 { margin-bottom: 1.5rem !important; }
+      .gap-12 { gap: 2rem !important; }
+
+      /* Hero fits the first screen together with the logo marquee */
+      section#home {
+        min-height: calc(100vh - 230px) !important;
+        padding-top: 4rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+
+      /* The base stylesheet justifies every <p>, which leaves big word gaps in narrow cards.
+         Inherit alignment instead (centered sections stay centered, others go left). */
+      html, body { overflow-x: clip; } /* testimonial arrows poked ~15px past the viewport at 1024px */
+      html body p { text-align: inherit; }
+      html body .text-justify { text-align: left; }
     </style>
     <script type="module" crossorigin src="/assets/index-CcLRYBum.js"></script>
   </head>
@@ -238,6 +270,17 @@
           schedule();
         }
         window.addEventListener('load', schedule);
+
+        // Reveal the page (body starts transparent to hide the pre-render flash) on every route,
+        // as soon as React has rendered, with a hard fallback so it can never stay blank.
+        function reveal() { if (document.body) document.body.classList.add('page-loaded'); }
+        var root = document.getElementById('root');
+        if (root && root.childElementCount) reveal();
+        else if (root) {
+          var ro = new MutationObserver(function () { if (root.childElementCount) { reveal(); ro.disconnect(); } });
+          ro.observe(root, { childList: true });
+        }
+        setTimeout(reveal, 1500);
       })();
     </script>
   <script>
