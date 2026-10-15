@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Evogr Solutions - Redefining Solutions</title>
+    <meta name="description" content="Nationwide manpower & consultancy by Ex-Army professionals. Professional staffing solutions across India." />
+    <meta name="author" content="Evogr Solutions Private Limited" />
+
+    <meta property="og:title" content="Evogr Solutions - Redefining Solutions" />
+    <meta property="og:description" content="Nationwide manpower & consultancy by Ex-Army professionals" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" crossorigin href="/assets/index-i2QypV5M.css">
+    <style>
+      /* CRITICAL: Prevent Flash of Unstyled Content */
+      html {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      body {
+        opacity: 0;
+        transition: opacity 0.15s ease-in;
+      }
+
+      body.page-loaded {
+        opacity: 1 !important;
+      }
+
+      /* TASK 9: Hero section spacing - Compressed for above-fold visibility */
+      section[id="home"] {
+        padding-top: 5rem !important;
+        min-height: 85vh !important;
+        padding-bottom: 3rem !important;
+      }
+
+      .hero-title, h1:first-of-type {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
+
+      /* Hide subtitle on hero */
+      section[id="home"] .section-subtitle {
+        display: none !important;
+      }
+
+      /* TASK 9: Tighter button spacing */
+      section[id="home"] .flex.flex-col {
+        margin-top: 2rem !important;
+        margin-bottom: 0 !important;
+      }
+
+      /* TASK 9: Tighter stats spacing */
+      section[id="home"] > div > div > div:last-child {
+        margin-top: 2.5rem !important;
+      }
+
+      /* Hide mouse bounce indicator */
+      section[id="home"] .animate-bounce {
+        display: none !important;
+      }
+
+      /* Logo Carousel - CRITICAL VISIBILITY + ALL TASK FIXES */
+      .evogr-logo-carousel {
+        width: 100%;
+        max-width: 1400px;
+        margin: 1.5rem auto 0; /* TASK 9: Further reduced from 2rem to 1.5rem */
+        padding: 0 20px;
+        overflow: hidden;
+        height: 100px;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: 100;
+        background: transparent;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+      }
+
+      .evogr-logo-track {
+        display: flex !important;
+        gap: 28px;
+        padding-right: 28px; /* keeps the -50% loop seamless */
+        animation: evogr-scroll-seamless 60s linear infinite;
+        width: max-content;
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translate3d(0, 0, 0);
+      }
+
+      /* Full-colour logos on white tiles so dark logos stay visible on the dark page */
+      .evogr-logo-tile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 150px;
+        height: 76px;
+        padding: 10px 14px;
+        box-sizing: border-box;
+        background: #fff;
+        border-radius: 12px;
+        transition: transform 0.3s ease;
+      }
+
+      a.evogr-logo-tile:hover {
+        transform: translateY(-2px);
+      }
+
+      .evogr-logo-track img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block !important;
+      }
+
+      @keyframes evogr-scroll-seamless {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%); /* TASK 5: Perfect seamless loop */
+        }
+      }
+
+      /* TASK 2: Removed hover pause - animation never stops */
+
+      @media (max-width: 768px) {
+        section[id="home"] {
+          padding-top: 3.5rem !important;
+        }
+
+        .evogr-logo-carousel {
+          height: 70px;
+          margin-top: 1rem; /* TASK 9: Further reduced for mobile */
+        }
+
+        .evogr-logo-track {
+          gap: 18px;
+          padding-right: 18px;
+        }
+
+        .evogr-logo-tile {
+          width: 110px;
+          height: 56px;
+          padding: 8px 10px;
+        }
+      }
+
+      /* ---- Layout patch: use the full width, tighten vertical rhythm ---- */
+      .max-w-7xl { max-width: 1680px !important; }
+      .max-w-6xl { max-width: 1440px !important; }
+      .max-w-4xl { max-width: 1120px !important; }
+      .max-w-3xl { max-width: 960px !important; }
+      .max-w-2xl { max-width: 780px !important; }
+      .max-w-7xl.mx-auto, .max-w-6xl.mx-auto {
+        padding-left: clamp(16px, 3.2vw, 56px) !important;
+        padding-right: clamp(16px, 3.2vw, 56px) !important;
+      }
+
+      section.py-20 { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+      section.py-16 { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+      section.pt-20.pb-16 { padding-top: 3.5rem !important; padding-bottom: 2.5rem !important; }
+      .mb-16 { margin-bottom: 2.5rem !important; }
+      .mb-12 { margin-bottom: 2rem !important; }
+      .mb-8 { margin-bottom: 1.5rem !important; }
+      .gap-12 { gap: 2rem !important; }
+
+      /* Hero fits the first screen together with the logo marquee */
+      section#home {
+        min-height: calc(100vh - 230px) !important;
+        padding-top: 4rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+
+      /* The base stylesheet justifies every <p>, which leaves big word gaps in narrow cards.
+         Inherit alignment instead (centered sections stay centered, others go left). */
+      html, body { overflow-x: clip; } /* testimonial arrows poked ~15px past the viewport at 1024px */
+      html body p { text-align: inherit; }
+      html body .text-justify { text-align: left; }
+    </style>
+    <script type="module" crossorigin src="/assets/index-CcLRYBum.js"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5989553461193563"
+     crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script>
+      // Logo marquee: one mount function, re-run whenever the SPA re-renders or the route changes.
+      (function () {
+        const LOGOS = [
+          { file: 'Pharmeasy-1.png', alt: 'PharmEasy', url: 'https://pharmeasy.in' },
+          { file: 'gmr-group-logo-png_seeklogo-310947.png', alt: 'GMR Group', url: 'https://www.gmrgroup.in' },
+          { file: 'cropped-logo-chola.png', alt: 'Chola MS', url: 'https://www.cholainsurance.com' },
+          { file: 'Hyundai_Motor_Company_logo.svg.png', alt: 'Hyundai', url: 'https://www.hyundai.com/in' },
+          { file: 'SCHIEBEL.png', alt: 'Schiebel', url: 'https://schiebel.net' },
+          { file: 'Mufin-Green-Logo-For-Website-01-01.png', alt: 'Mufin', url: 'https://mufingreenfinance.com' },
+          { file: 'Bennett-University-logo1-.png', alt: 'Bennett University', url: 'https://www.bennett.edu.in' },
+          { file: 'MAHE_Logo_transparentBG.png', alt: 'Manipal', url: 'https://manipal.edu' },
+          { file: 'tulip_logo_ng-removebg-preview.png', alt: 'Tulip', url: 'https://www.tulipcompression.com' },
+          { file: 'GYP_drive_logos_3_page-0001-removebg-preview.png', alt: 'GypDrive', url: 'https://gypdrivefasteners.com' },
+          { file: 'larsen-toubro.png', alt: 'Larsen & Toubro', url: 'https://www.larsentoubro.com' },
+          { file: 'chandigarh-university.png', alt: 'Chandigarh University', url: 'https://www.cuchd.in' },
+          { file: 'eid-parry.jpg', alt: 'EID Parry', url: 'https://eidparry.com' },
+          { file: 'aditya-birla.jpg', alt: 'Aditya Birla Group', url: 'https://www.adityabirla.com' },
+          { file: 'navyug-defence.png', alt: 'Navyug Defence', url: 'https://navyugdefence.ai' },
+          { file: 'mwts.png', alt: 'Murugappa Water Technology Solutions', url: 'https://murugappawater.com' },
+          { file: 'tvs-supply-chain.png', alt: 'TVS Supply Chain Solutions', url: 'https://www.tvsscs.com' }
+        ];
+
+        function tile(l) {
+          var img = '<img src="/assets/logos/' + l.file + '" alt="' + l.alt + '" width="120" height="60" loading="eager" />';
+          return l.url
+            ? '<a class="evogr-logo-tile" href="' + l.url + '" target="_blank" rel="noopener noreferrer" aria-label="' + l.alt + '">' + img + '</a>'
+            : '<div class="evogr-logo-tile">' + img + '</div>';
+        }
+
+        var TRACK_HTML = '<div class="evogr-logo-track">' +
+          LOGOS.map(tile).join('') + LOGOS.map(tile).join('') + '</div>';
+
+        // The marquee belongs directly after the hero (#home), on the home page only.
+        function sync() {
+          var hero = document.querySelector('#home');
+          var existing = document.querySelector('.evogr-logo-carousel');
+
+          if (!hero) {
+            if (existing) existing.remove();
+            return;
+          }
+          if (existing && existing.previousElementSibling === hero) return;
+          if (existing) existing.remove();
+
+          var carousel = document.createElement('div');
+          carousel.className = 'evogr-logo-carousel';
+          carousel.setAttribute('data-carousel-mounted', 'true');
+          carousel.innerHTML = TRACK_HTML;
+          hero.parentNode.insertBefore(carousel, hero.nextSibling);
+          document.body.classList.add('page-loaded');
+        }
+
+        // Coalesce bursts of DOM mutations into one check per frame.
+        var queued = false;
+        function schedule() {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; sync(); });
+        }
+
+        new MutationObserver(schedule).observe(document.documentElement, { childList: true, subtree: true });
+        window.addEventListener('popstate', schedule);
+        ['pushState', 'replaceState'].forEach(function (m) {
+          var orig = history[m];
+          history[m] = function () { var r = orig.apply(this, arguments); schedule(); return r; };
+        });
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', schedule);
+        } else {
+          schedule();
+        }
+        window.addEventListener('load', schedule);
+
+        // Reveal the page (body starts transparent to hide the pre-render flash) on every route,
+        // as soon as React has rendered, with a hard fallback so it can never stay blank.
+        function reveal() { if (document.body) document.body.classList.add('page-loaded'); }
+        var root = document.getElementById('root');
+        if (root && root.childElementCount) reveal();
+        else if (root) {
+          var ro = new MutationObserver(function () { if (root.childElementCount) { reveal(); ro.disconnect(); } });
+          ro.observe(root, { childList: true });
+        }
+        setTimeout(reveal, 1500);
+      })();
+    </script>
+  <script>
+      // Web3Forms: forward the Contact form (/contact) submission to email. The React form
+      // keeps saving to Supabase as before; this runs alongside it.
+      (function () {
+        var ACCESS_KEY = '85a73c7c-6ac9-4374-b9c9-d42bf807b09c'; // public Web3Forms key
+        var seen = 0;
+
+        function labelFor(el) {
+          var id = el.id, text = '';
+          if (id) {
+            var lab = document.querySelector('label[for="' + id + '"]');
+            if (lab) text = lab.textContent;
+          }
+          text = (text || el.getAttribute('placeholder') || el.name || id || 'Field').replace(/\*/g, '').trim();
+          return text;
+        }
+
+        document.addEventListener('submit', function (e) {
+          try {
+            var form = e.target;
+            if (!form || form.tagName !== 'FORM' || !form.querySelector('#contact-name')) return; // contact form only
+
+            var fields = {};
+            form.querySelectorAll('input, textarea, select').forEach(function (el) {
+              if (el.type === 'hidden' || el.type === 'submit' || el.type === 'button') return;
+              if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
+              var v = (el.value || '').trim();
+              if (v) fields[labelFor(el)] = v;
+            });
+            if (!Object.keys(fields).length) return;
+
+            var heading = form.querySelector('h2, h3');
+            var formName = (heading && heading.textContent.trim()) || document.title;
+
+            var payload = Object.assign({
+              access_key: ACCESS_KEY,
+              subject: 'New website submission: ' + formName,
+              from_name: 'Evogr Website',
+              form: formName,
+              page: location.href
+            }, fields);
+
+            fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify(payload),
+              keepalive: true
+            }).catch(function () {});
+          } catch (err) { /* never break the site's own form handling */ }
+        }, true);
+      })();
+    </script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"e76faca2e13d4764b0e43ba546fb9d31","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
