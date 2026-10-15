@@ -102,7 +102,7 @@ p { margin: 0 0 1em; }
 /* Trust / logo strip */
 .trust { border-block: 1px solid var(--line); background: #fff; padding-block: 28px 30px; }
 .trust-label { text-align: center; font: 600 .8rem/1 var(--font-head); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
-.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.marquee { overflow: hidden; width: 100%; } /* full-bleed: sits outside .container, no edge fade */
 .marquee-track { display: flex; gap: 44px; width: max-content; animation: scroll 55s linear infinite; padding-right: 44px; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 .marquee a { flex: none; width: 150px; height: 64px; display: grid; place-items: center; padding: 6px 10px; }
