@@ -318,6 +318,58 @@
         });
       });
     </script>
+  <script>
+      // Web3Forms: forward the Contact form (/contact) submission to email. The React form
+      // keeps saving to Supabase as before; this runs alongside it.
+      (function () {
+        var ACCESS_KEY = '85a73c7c-6ac9-4374-b9c9-d42bf807b09c'; // public Web3Forms key
+        var seen = 0;
+
+        function labelFor(el) {
+          var id = el.id, text = '';
+          if (id) {
+            var lab = document.querySelector('label[for="' + id + '"]');
+            if (lab) text = lab.textContent;
+          }
+          text = (text || el.getAttribute('placeholder') || el.name || id || 'Field').replace(/\*/g, '').trim();
+          return text;
+        }
+
+        document.addEventListener('submit', function (e) {
+          try {
+            var form = e.target;
+            if (!form || form.tagName !== 'FORM' || !form.querySelector('#contact-name')) return; // contact form only
+
+            var fields = {};
+            form.querySelectorAll('input, textarea, select').forEach(function (el) {
+              if (el.type === 'hidden' || el.type === 'submit' || el.type === 'button') return;
+              if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
+              var v = (el.value || '').trim();
+              if (v) fields[labelFor(el)] = v;
+            });
+            if (!Object.keys(fields).length) return;
+
+            var heading = form.querySelector('h2, h3');
+            var formName = (heading && heading.textContent.trim()) || document.title;
+
+            var payload = Object.assign({
+              access_key: ACCESS_KEY,
+              subject: 'New website submission: ' + formName,
+              from_name: 'Evogr Website',
+              form: formName,
+              page: location.href
+            }, fields);
+
+            fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify(payload),
+              keepalive: true
+            }).catch(function () {});
+          } catch (err) { /* never break the site's own form handling */ }
+        }, true);
+      })();
+    </script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"e76faca2e13d4764b0e43ba546fb9d31","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
